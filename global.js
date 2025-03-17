@@ -27,7 +27,10 @@ async function getAdress({ latitude, longitude }) {
   if (!descriptionAdress) {
     throw new Error("Адрес не найден в ответе API");
   }
-  console.log("Ваш Адрес:", descriptionAdress);
+
+  const formatedAdres = descriptionAdress.split(',');
+  
+  console.log("Ваш Адрес:", formatedAdres);
   return descriptionAdress;
 }
 
@@ -74,8 +77,19 @@ async function getWether(location) {
     };
 }
 
-function rendertCitySection () {
-  
+function rendertCitySection ({
+  responseJSON,
+  temp,
+  descriptionDay,
+  feelslikeDay,
+  humidity,
+  cloudcover,
+  windspeed,
+},formatedAdres) {
+  const tempCity = document.querySelector('.weatherCitySection__degrees')
+  const 
+
+  tempCity.innerHTML = `${temp}°`
 }
 
 
@@ -88,13 +102,19 @@ function rendertCitySection () {
 
 (async () => {
   try {
+    console.log('lol')
     const coordinates = await getGeolocation();
     const weather = await getWether(coordinates);
-
-    getAdress(coordinates);
+    const adress = getAdress(coordinates);
+    rendertCitySection(weather,adress);
     console.log(coordinates);
     getWether(coordinates);
   } catch (error) {
-    console.error("Ошибка: ", error.message);
+    if (error.code === 1) {
+      console.log("Пользователь отклонил запрос на геолокацию.");
+    } else {
+      console.error("Ошибка: ", error.message);
+    }
+
   }
 })();
