@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <link rel="stylesheet" href="./styles/modern-normalize.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+  </head>
+  <body>
+    <div class="oneScreen">
+      <div class="weatherCitySection">
+        <div class="weatherCitySection__degrees">16°</div>
+        <div class="weatherCitySection__cityTime">
+          <div class="weatherCitySection__city">Щербинка</div>
+          <div class="weatherCitySection__time">
+            06:09 - Воскресенье, 9 Сентября ‘2025
+          </div>
+        </div>
+        <div class="weatherCitySection__icon">
+          <img
+            class="weatherCitySection__icon-img"
+            src="./assets/img/weather.png"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="moreDetailed">
+        <div class="moreDetailedSection">
+          <search class="moreDetailed__search">
+            <form class="search-form" action="">
+              <input
+                maxlength="25"
+                class="search-form__input"
+                placeholder="Город..."
+                type="text"
+              />
+              <img
+                src="./assets/icon/fa_search.svg"
+                class="search-form__icon"
+                alt=""
+              /></form
+          ></search>
+          <div class="moreDetailed__info">
+            <div class="moreDetailed__description">
+              гроза с легким моросящим дождем
+            </div>
+            <div class="moreDetailed__tempNow tempNow">
+              <div class="tempNow__text">Текущая температура</div>
+              <div class="right-block">
+                <div class="tempNow__meaning">19°</div>
+                <div class="tempNow__icon">
+                  <img src="./assets/icon/tempNow.svg" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="moreDetailed__tempFeels tempFeels">
+              <div class="tempFeels__text">Ощущаемая температура</div>
+              <div class="right-block">
+                <div class="tempFeels__meaning">19°</div>
+                <div class="tempFeels__icon">
+                  <img src="./assets/icon/tempNow.svg" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="moreDetailed__humidity humidity">
+              <div class="humidity__text">Влажность</div>
+              <div class="right-block">
+                <div class="humidity__meaning">58%</div>
+                <div class="humidity__icon">
+                  <img src="./assets/icon/humidity.svg" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="moreDetailed__cloudcover cloudcover">
+              <div class="cloudcover__text">Облочность</div>
+              <div class="right-block">
+                <div class="cloudcover__meaning">58%</div>
+                <div class="cloudcover__icon">
+                  <img src="./assets/icon/cloudcover.svg" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="moreDetailed__windspeed windspeed">
+              <div class="windspeed__text">Ветер</div>
+              <div class="right-block">
+                <div class="windspeed__meaning">5км/ч</div>
+                <div class="windspeed__icon">
+                  <img src="./assets/icon/windspeed.svg" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./global.js"></script>
+  </body>
+</html>
