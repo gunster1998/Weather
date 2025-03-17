@@ -75,7 +75,7 @@ async function getWether(location) {
 }
 
 function rendertCitySection () {
-
+  
 }
 
 
