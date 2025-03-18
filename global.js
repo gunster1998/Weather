@@ -10,15 +10,17 @@ async function getGeolocation() {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 
-  console.log(location);
   const { latitude, longitude } = location.coords;
+
   return { latitude, longitude };
 }
 //Адресс по координатам
 async function getAdress({ latitude, longitude }) {
+
   const response = await fetch(
     `https://geocode-maps.yandex.ru/1.x/?apikey=${APIYANDEX}&geocode=${longitude},${latitude}&format=json`
   );
+
   const responseJSON = await response.json();
   const descriptionAdress =
     responseJSON.response?.GeoObjectCollection?.featureMember[0]?.GeoObject
@@ -30,7 +32,6 @@ async function getAdress({ latitude, longitude }) {
 
   const formatedAdres = descriptionAdress.split(',');
   
-  console.log("Ваш Адрес:", formatedAdres);
   return formatedAdres[0];
 }
 
