@@ -31,7 +31,7 @@ async function getAdress({ latitude, longitude }) {
   const formatedAdres = descriptionAdress.split(',');
   
   console.log("Ваш Адрес:", formatedAdres);
-  return descriptionAdress;
+  return formatedAdres[0];
 }
 
 //Погода по координатам
@@ -86,14 +86,95 @@ function rendertCitySection ({
   cloudcover,
   windspeed,
 },formatedAdres) {
+  const nameCity = document.querySelector('.weatherCitySection__city')
   const tempCity = document.querySelector('.weatherCitySection__degrees')
-  const 
+  const timeCite = document.querySelector('.weatherCitySection__time')
 
-  tempCity.innerHTML = `${temp}°`
+console.log('')
+  const dateNow = new Date();
+  const daysWeek = [
+    "Воскресенье",
+    "Понедельник",
+    "Вторник",
+    "Среда",
+    "Четверг",
+    "Пятница",
+    "Суббота"
+  ];
+  const ArrayMonths = [
+    "Января",
+    "Февраля",
+    "Марта",
+    "Апреля",
+    "Мая",
+    "Июня",
+    "Июля",
+    "Августа",
+    "Сентября",
+    "Октября",
+    "Ноября",
+    "Декабря"
+  ];
+  const hourse = dateNow.getHours();
+  const minutes = ()=> {
+    if (dateNow.getMinutes()> 9) {
+      return dateNow.getMinutes().toString();
+    }
+    return ("0" + dateNow.getMinutes())
+  }
+  const day = daysWeek[dateNow.getDay()];
+  const dayMonth = dateNow.getDate();
+  const month = ArrayMonths[dateNow.getMonth()];
+  const year = dateNow.getFullYear();
+
+  nameCity.innerHTML = `${formatedAdres}`
+  tempCity.innerHTML = `${Math.floor(temp)}°`
+  timeCite.innerHTML = `${hourse}:${minutes()} - ${day}, ${dayMonth} ${month} ‘${year}`
+}
+
+function renderMoreDetailed ({
+  responseJSON,
+  temp,
+  descriptionDay,
+  feelslikeDay,
+  humidity,
+  cloudcover,
+  windspeed,
+}) {
+  const moreDetailed = document.querySelector('.moreDetailed__description')
+  const tempNow = document.querySelector('.tempNow__meaning')
+  const tempFeels = document.querySelector('.tempFeels__meaning')
+  const humidityBlock = document.querySelector('.humidity__meaning')
+  const cloudcoverBlock = document.querySelector('.cloudcover__meaning')
+  const windSpeedBlock = document.querySelector('.windspeed__meaning')
+
+  moreDetailed.innerHTML = `${descriptionDay}`
+  tempNow.innerHTML = `${temp}°`
+  tempFeels.innerHTML = `${feelslikeDay}°`
+  humidityBlock.innerHTML = `${humidity}%`
+  cloudcoverBlock.innerHTML = `${cloudcover}%`
+  windSpeedBlock.innerHTML = `${windspeed}%`
 }
 
 
+function addCiteWeatherListener() {
+  const input = document.querySelector('.search-form__input')
+  const form = document.querySelector('.search-form')
 
+  input.addEventListener('change',async function (event) {
+    const city = event.target.value
+    console.log("Вот адресс тут для евента",city)
+    const weatherCity = await getWether(city);
+    console.log(weatherCity)
+    rendertCitySection(weatherCity,city);
+    renderMoreDetailed(weatherCity)
+  })
+
+  form.addEventListener('submit',function(event) {
+    event.preventDefault();
+
+  })
+}
 
 
 
@@ -102,19 +183,17 @@ function rendertCitySection ({
 
 (async () => {
   try {
-    console.log('lol')
     const coordinates = await getGeolocation();
     const weather = await getWether(coordinates);
-    const adress = getAdress(coordinates);
+    const adress = await getAdress(coordinates);
     rendertCitySection(weather,adress);
-    console.log(coordinates);
-    getWether(coordinates);
+    renderMoreDetailed(weather)
+    addCiteWeatherListener() 
   } catch (error) {
     if (error.code === 1) {
       console.log("Пользователь отклонил запрос на геолокацию.");
     } else {
       console.error("Ошибка: ", error.message);
     }
-
   }
 })();
